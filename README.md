@@ -40,11 +40,7 @@
 
 ### 실제 프로젝트 구조
 
-![img.png](readme-image/real-project-structure.png)
-
-### ERD
-
-![img.png](readme-image/erd.png)
+![img.png](readme-image/dongwha-project-structure.png)
 
 ---
 
