@@ -5,7 +5,8 @@
 <img src="https://img.shields.io/badge/h2-4479A1?style=for-the-badge&logo=wikidata&logoColor=white" alt="h2">
 <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white" alt="swagger">
 <img src="https://img.shields.io/badge/jpa-20336B?style=for-the-badge&logoColor=white" alt="jpa">
-<img src="https://img.shields.io/badge/slf4j (with logback)-20336B?style=for-the-badge&logoColor=white" alt="slf4j">
+<img src="https://img.shields.io/badge/slf4j (with logback)-40AEF0?style=for-the-badge&logoColor=white" alt="slf4j">
+<img src="https://img.shields.io/badge/MyBatis-ECD53F?style=for-the-badge&logoColor=white" alt="MyBatis">
 
 ---
 
