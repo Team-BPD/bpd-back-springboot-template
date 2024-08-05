@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @Tag(
         name = "고객 API",
@@ -58,6 +60,13 @@ public class ConsumerController {
     )
     public ResponseEntity<ConsumerDto> getConsumer(@PathVariable String id) {
         ConsumerDto consumerDto = consumerService.getConsumerInfo(id);
+        return ResponseEntity.ok(consumerDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ConsumerDto>> getConsumers() {
+        List<ConsumerDto> consumerDto = consumerService.getConsumers();
+
         return ResponseEntity.ok(consumerDto);
     }
 
