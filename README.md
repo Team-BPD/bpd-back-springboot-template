@@ -11,8 +11,16 @@
 
 ## 프로젝트 주요 기능과 목적
 
-- 비즈플랫폼개발팀의 백엔드 프로젝트 아키텍처를 정의합니다.
+- 비즈플랫폼개발팀의 **백엔드 프로젝트 아키텍처**를 정의합니다.
 - 신규 프로젝트 진행 시, 해당 Template을 이용하여 구축합니다.
+
+### ✨ [지켜야할 기본 규칙](https://dwedi.atlassian.net/wiki/spaces/BPD/pages/615875030/-+Spring) 필독 ! ✨
+
+### ✨TDD을 기반으로 코딩되어야 합니다. ✨
+
+### ✨직접 main 브랜치에 push 할 수 없습니다. ✨
+
+### ✨Pull Request 를 통한 Merge 가 기본이며, 예외는 없습니다. ✨
 
 ---
 
@@ -26,17 +34,23 @@
 - **Service Layer**는 **Repository Layer**만 의존해야한다.
     - 예외) **Application Layer**는 **Infrastructure Layer**에 의존할 수도 있다.
 
-### 계층별 구성 (간단)
+### 계층별 구성
 
-- Presentation Layer
-    - Controller
-- Application Layer
-    - Service
-- Domain
-    - Entity
+- layeredarchitecture
+    - Presentation Layer
+        - Controller
+    - Application Layer
+        - Service
     - Domain
-- Infrastructure Layer
-    - Repository
+        - Entity
+        - Domain
+    - Infrastructure Layer
+        - Repository
+- common
+    - config
+    - constants
+    - dto
+    - exception
 
 ### 실제 프로젝트 구조
 
@@ -52,14 +66,12 @@
 
 ---
 
-## 테스트 방법
+## API 명세서
 
-API 문서 : http://localhost:8080/swagger-ui/index.html  
+http://localhost:8080/swagger-ui/index.html
+
 API 문서 다운로드 (yaml) : http://localhost:8080/api-docs.yaml  
 API 문서 다운로드 (json) : http://localhost:8080/api-docs
-
-1. LayeredArchitectureApplication 을 실행합니다.
-2. 위 Swagger 문서를 보고 API 를 호출 합니다.
 
 ---
 
@@ -74,3 +86,9 @@ API 문서 다운로드 (json) : http://localhost:8080/api-docs
 - lombok (latest)
 - h2 (latest)
 - junit-platform-launcher (latest)
+- jjwt-api (0.11.5)
+- jjwt-impl (0.11.5)
+- jjwt-jackson (0.11.5)
+- mockito-core (latest)
+- junit-jupiter (latest)
+- junit-jupiter-engine (latest)
