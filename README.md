@@ -21,7 +21,7 @@
 
 ### ✨직접 main 브랜치에 push 할 수 없습니다. ✨
 
-### ✨Pull Request 를 통한 Merge 가 기본이며, 예외는 없습니다. ✨
+### ✨Pull Request 를 통한 Squash Merge 가 기본이며, 예외는 없습니다. ✨
 
 ---
 
