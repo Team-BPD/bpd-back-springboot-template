@@ -1,4 +1,4 @@
-# 레이어드 아키텍처 학습
+# BPD BACK-END SPRINGBOOT TEMPLATE
 
 <img src="https://img.shields.io/badge/openjdk_21-000000?style=for-the-badge&logo=openjdk&logoColor=white" alt="openjdk-17">
 <img src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="spring-boot">
