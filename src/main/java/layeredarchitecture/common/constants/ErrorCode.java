@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @Getter
 public enum ErrorCode {
+    CONSUMERS_NOT_FOUND(HttpStatus.NOT_FOUND, "고객이 존재하지 않습니다."),
     CONSUMER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 고객 ID 입니다."),
     CLIENT_SYSTEM_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 클라이언트 시스템 입니다."),
     JWT_NOT_FOUND(HttpStatus.UNAUTHORIZED, "JWT 이 존재하지 않습니다."),
