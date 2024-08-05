@@ -83,6 +83,7 @@ API 문서 다운로드 (json) : http://localhost:8080/api-docs
 - spring-boot-starter-test (latest)
 - spring-boot-starter-validation (latest)
 - springdoc-openapi-starter-webmvc-ui (2.6.0)
+- mybatis-spring-boot-starter (3.0.3)
 - lombok (latest)
 - h2 (latest)
 - junit-platform-launcher (latest)
