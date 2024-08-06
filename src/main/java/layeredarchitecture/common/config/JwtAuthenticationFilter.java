@@ -41,9 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            // "/auth" 경로는 필터를 태우지 않음
-            if (request.getRequestURI()
-                       .startsWith("/auth")) {
+            // JWT 발급, h2, swagger 는 token 인증 제외
+            if (isPassable(request.getRequestURI())) {
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -83,6 +82,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.clearContext();
             handleException(response, e, request.getRequestURI());
         }
+    }
+
+    /**
+     * JWT 인증 필터 제외 유무
+     *
+     * @param uri URI
+     * @return boolean
+     */
+    private boolean isPassable(String uri) {
+        return uri.startsWith("/auth") || uri.startsWith("/swagger-ui") ||
+                uri.startsWith("/api-docs") || uri.startsWith("/h2-console");
     }
 
     /**
