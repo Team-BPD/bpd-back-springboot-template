@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import java.util.List;
+
 @Slf4j
 @Tag(
         name = "고객 API",
@@ -60,7 +62,7 @@ public class ConsumerController {
         ConsumerDto consumerDto = consumerService.getConsumerInfo(id);
         return ResponseEntity.ok(consumerDto);
     }
-
+  
     @Operation(
             summary = "전체 고객 정보 조회",
             description = "전체 고객 정보를 조회하여 반환한다. (by myBatis)"
@@ -80,5 +82,5 @@ public class ConsumerController {
     public ResponseEntity<ConsumerDto> registerConsumer(@RequestBody @Validated ConsumerDto consumerDto) {
         return ResponseEntity.ok(consumerDto);
     }
-
+  
 }
