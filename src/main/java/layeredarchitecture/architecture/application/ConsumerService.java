@@ -44,7 +44,7 @@ public class ConsumerService {
     /**
      * 전체 소비자 정보 조회
      *
-     * @return List<ConsumerDto></ConsumerDto>
+     * @return List<ConsumerDto>
      */
     @Transactional(readOnly = true)
     public List<ConsumerDto> getConsumers() {
