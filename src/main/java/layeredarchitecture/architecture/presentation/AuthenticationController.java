@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import layeredarchitecture.architecture.application.AuthenticationService;
-import layeredarchitecture.architecture.domain.JsonWebToken;
 import layeredarchitecture.architecture.presentation.response.AuthResponse;
 import layeredarchitecture.architecture.presentation.response.ErrorResponse;
 import layeredarchitecture.common.dto.AuthDto;
@@ -17,19 +16,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Tag(
         name = "JWT API",
-        description = "JWT 관련 API"
+        description = "JWT 관련 API 입니다."
 )
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
-
-    private final JsonWebToken jwt;
 
     private final AuthenticationService authenticationService;
 
@@ -68,8 +66,7 @@ public class AuthenticationController {
             )}
     )
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthResponse> generatedJwt(@RequestBody AuthDto authDto) {
-
+    public ResponseEntity<AuthResponse> generatedJwt(@RequestBody @Validated AuthDto authDto) {
         String jwt = authenticationService.generatedJwt(authDto);
 
         return ResponseEntity.ok(AuthResponse.builder()
@@ -90,25 +87,18 @@ public class AuthenticationController {
     @ApiResponses(
             {@ApiResponse(
                     responseCode = "200",
-                    description = "JWT 유효",
-                    content = @Content(
-                            examples = @ExampleObject(value = "{\"isValid\":true}"),
-                            schema = @Schema(implementation = Json.class)
-                    )
+                    description = "JWT 유효"
             )}
     )
     @GetMapping(
             value = "/check",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<AuthResponse> getId(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
+    public ResponseEntity<Void> validatedJwt(@RequestHeader("Authorization") String authHeader) {
+        authenticationService.validatedJwt(authHeader);
 
-        boolean isValid = jwt.isTokenValid(token);
-
-        return ResponseEntity.ok(AuthResponse.builder()
-                                             .isValid(isValid)
-                                             .build());
+        return ResponseEntity.ok()
+                             .build();
     }
 
 }

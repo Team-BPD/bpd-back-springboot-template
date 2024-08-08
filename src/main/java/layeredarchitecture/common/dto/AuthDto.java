@@ -10,9 +10,12 @@ import lombok.Data;
 @Schema(description = "클라이언트 시스템 인증 정보")
 public class AuthDto {
 
-    @Schema(description = "ID")
+    @Schema(description = "시스템 ID")
+    private Long id;
+
+    @Schema(description = "시스템 명")
     @NotNull
-    private String id;
+    private String name;
 
     @Schema(description = "비밀번호")
     @NotNull

@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface ClientSystemRepository extends JpaRepository<ClientSystem, String> {
+public interface ClientSystemRepository extends JpaRepository<ClientSystem, Long> {
 
-    @Query("SELECT password FROM ClientSystem WHERE id = :id")
-    Optional<String> findPasswordById(@Param("id") String id);
+    @Query("SELECT password FROM ClientSystem WHERE name = :name")
+    Optional<String> findPasswordByName(@Param("name") String name);
 
 }

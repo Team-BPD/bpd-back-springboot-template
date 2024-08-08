@@ -27,17 +27,29 @@ public class AuthenticationService {
      */
     @Transactional(readOnly = true)
     public String generatedJwt(AuthDto authDto) {
-        String clientSystemId = authDto.getId();
+        String clientSystemName = authDto.getName();
         String clientSystemPassword = authDto.getPassword();
 
-        String password = clientSystemRepository.findPasswordById(authDto.getId())
+        String password = clientSystemRepository.findPasswordByName(authDto.getName())
                                                 .orElseThrow(() -> new CustomException(ErrorCode.CLIENT_SYSTEM_NOT_FOUND));
 
         if (!clientSystemPassword.equals(password)) {
             throw new CustomException(ErrorCode.ID_PASSWORD_NOT_MATCHED);
         }
 
-        return jwt.generateToken(clientSystemId);
+        return jwt.generateToken(clientSystemName);
+    }
+
+    /**
+     * 전달 받은 token의 유효성을 검사하고 반환한다.
+     *
+     * @param authHeader 인증 관련 HEADER 정보
+     */
+    @Transactional(readOnly = true)
+    public void validatedJwt(String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+
+        jwt.isTokenValid(token);
     }
 
 }
