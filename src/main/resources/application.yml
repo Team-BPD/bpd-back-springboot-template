@@ -13,7 +13,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update # 테이블이 존재할 경우 스킵
+      ddl-auto: update # 테이블이 존재할 경우 스킵, 개발/운영 환경은 none;
     properties:
       hibernate:
         show_sql: true

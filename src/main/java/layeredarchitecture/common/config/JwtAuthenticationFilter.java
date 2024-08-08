@@ -59,9 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = authHeader.replace("Bearer ", "");
 
             // JWT 유효하지 않으면 에러 반환
-            if (!jwt.isTokenValid(token)) {
-                throw new JwtAuthenticationException("JWT not valid");
-            }
+            jwt.isTokenValid(token);
 
             // 클라이언트 시스템 ID 추출
             String id = jwt.extractId(token);
