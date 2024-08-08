@@ -1,7 +1,7 @@
 package layeredarchitecture.architecture.presentation;
 
-import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,6 +14,7 @@ import layeredarchitecture.architecture.presentation.response.ErrorResponse;
 import layeredarchitecture.common.dto.AuthDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -46,21 +47,14 @@ public class AuthenticationController {
                     responseCode = "200",
                     description = "JWT 발급 성공",
                     content = @Content(
-                            examples = @ExampleObject(value = "{\"jwt\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHUkVFTk5FVCIsImlhdCI6MTcyMjkyMzI1MSwiZXhwIjoxNzIyOTI2ODUxfQ.vl_MWoO5afqupgp-WcLioglI1DIKc-Dm7tuIDHbIU6n3MfUQibSmC_4GMS011ik8LAOaPVDwEnGksrdO7lxbPg\"}"),
-                            schema = @Schema(implementation = Json.class)
-                    )
-            ), @ApiResponse(
-                    responseCode = "404",
-                    description = "클라이언트 시스템 없음",
-                    content = @Content(
-                            examples = @ExampleObject(value = "{\"type\":\"/errors/custom\",\"title\":\"Custom Error\",\"status\":404,\"detail\":\"존재하지 않는 클라이언트 시스템 입니다.\",\"instance\":\"/auth\"}"),
-                            schema = @Schema(implementation = ErrorResponse.class)
+                            examples = @ExampleObject(value = "{\"title\":\"JWT 발급 성공\",\"status\":200,\"detail\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHUkVFTk5FVCIsImlhdCI6MTcyMzA5NDE2MywiZXhwIjoxNzIzMDk3NzYzfQ.3tVkL-8OJsjOncA3IRxisX_ZFbyI1L-WQsxbHmgMLFlUab2b1Ppv6ViMfet60phrHPF-mpDJiOaI8EvzVxiAXQ\"}"),
+                            schema = @Schema(implementation = AuthResponse.class)
                     )
             ), @ApiResponse(
                     responseCode = "401",
                     description = "아이디 또는 비밀번호 불일치",
                     content = @Content(
-                            examples = @ExampleObject(value = "{\"type\":\"/errors/custom\",\"title\":\"Custom Error\",\"status\":401,\"detail\":\"아이디 또는 비밀번호가 일치하지 않습니다.\",\"instance\":\"/auth\"}"),
+                            examples = @ExampleObject(value = "{\"type\":\"/errors/authentication\",\"title\":\"AUTH NOT VALID\",\"status\":401,\"detail\":\"아이디 또는 비밀번호가 일치하지 않습니다.\",\"instance\":\"/auth\"}"),
                             schema = @Schema(implementation = ErrorResponse.class)
                     )
             )}
@@ -70,7 +64,9 @@ public class AuthenticationController {
         String jwt = authenticationService.generatedJwt(authDto);
 
         return ResponseEntity.ok(AuthResponse.builder()
-                                             .jwt(jwt)
+                                             .title("JWT 발급 성공")
+                                             .status(HttpStatus.OK.value())
+                                             .detail(jwt)
                                              .build());
     }
 
@@ -87,18 +83,35 @@ public class AuthenticationController {
     @ApiResponses(
             {@ApiResponse(
                     responseCode = "200",
-                    description = "JWT 유효"
+                    description = "JWT 유효",
+                    content = @Content(
+                            examples = @ExampleObject(value = "{\"title\":\"JWT 유효\",\"status\":200,\"detail\":\"JWT가 유효합니다.\"}"),
+                            schema = @Schema(implementation = AuthResponse.class)
+                    )
+            ), @ApiResponse(
+                    responseCode = "401",
+                    description = "JWT 미 유효",
+                    content = @Content(
+                            examples = @ExampleObject(value = "{\"type\":\"/errors/authentication\",\"title\":\"AUTH NOT VALID\",\"status\":401,\"detail\":\"JWT 가 유효하지 않습니다.\",\"instance\":\"/auth/check\"}"),
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
             )}
     )
     @GetMapping(
             value = "/check",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> validatedJwt(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<AuthResponse> validatedJwt(@Parameter(
+            name = "Authorization",
+            description = "JWT"
+    ) @RequestHeader("Authorization") String authHeader) {
         authenticationService.validatedJwt(authHeader);
 
-        return ResponseEntity.ok()
-                             .build();
+        return ResponseEntity.ok(AuthResponse.builder()
+                                             .title("JWT 유효")
+                                             .status(HttpStatus.OK.value())
+                                             .detail("JWT가 유효합니다.")
+                                             .build());
     }
 
 }

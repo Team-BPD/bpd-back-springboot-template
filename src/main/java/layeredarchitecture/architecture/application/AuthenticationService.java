@@ -31,7 +31,7 @@ public class AuthenticationService {
         String clientSystemPassword = authDto.getPassword();
 
         String password = clientSystemRepository.findPasswordByName(authDto.getName())
-                                                .orElseThrow(() -> new CustomException(ErrorCode.CLIENT_SYSTEM_NOT_FOUND));
+                                                .orElseThrow(() -> new CustomException(ErrorCode.ID_PASSWORD_NOT_MATCHED));
 
         if (!clientSystemPassword.equals(password)) {
             throw new CustomException(ErrorCode.ID_PASSWORD_NOT_MATCHED);
