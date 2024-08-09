@@ -53,15 +53,12 @@
     - dto
     - exception
 
-### 실제 프로젝트 구조
-
-![img.png](readme-image/dongwha-project-structure.png)
-
 ---
 
 ## 설치 방법
 
 1. JDK 21 설치
+2. Lombok 설치
 2. Git pull
 3. 어플리케이션 실행
 
