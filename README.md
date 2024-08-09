@@ -53,10 +53,6 @@
     - dto
     - exception
 
-### 실제 프로젝트 구조
-
-![img.png](readme-image/dongwha-project-structure.png)
-
 ---
 
 ## 설치 방법
