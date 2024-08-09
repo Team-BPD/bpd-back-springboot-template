@@ -1,9 +1,9 @@
 package layeredarchitecture.architecture.application;
 
 import layeredarchitecture.architecture.domain.JsonWebToken;
+import layeredarchitecture.architecture.dto.AuthDto;
 import layeredarchitecture.architecture.infrastructure.ClientSystemRepository;
 import layeredarchitecture.common.constants.ErrorCode;
-import layeredarchitecture.common.dto.AuthDto;
 import layeredarchitecture.common.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
